@@ -10,25 +10,28 @@ namespace Sea_Battle_2._0
     {
         static void Main(string[] args)
         {
-            string[,] field = new string[10, 10];
+            Computer comp = new Computer();
+            User user = new User();
+            string[,] compfield = comp.GetField();
+            string[,] userfield = user.GetField();
 
 
 
-            for (int i = 0; i < field.GetLength(0); i++)
+            for (int i = 0; i < compfield.GetLength(0); i++)
             {
-                for (int j = 0; j < field.GetLength(0); j++)
-                    field[i, j] = ".";
-            }
-            Player player = new Player();
-            player.GetField(field);
-
-            for (int i = 0; i < field.GetLength(0); i++)
-            {
-                for (int j = 0; j < field.GetLength(0); j++)
-                    Console.Write(field[i, j]);
+                for (int j = 0; j < compfield.GetLength(0); j++)
+                    Console.Write(compfield[i, j]);
                 Console.WriteLine("");
             }
-            
+
+            user.Attack(compfield);
+
+            for (int i = 0; i < compfield.GetLength(0); i++)
+            {
+                for (int j = 0; j < compfield.GetLength(0); j++)
+                    Console.Write(compfield[i, j]);
+                Console.WriteLine("");
+            }
 
         }
     }

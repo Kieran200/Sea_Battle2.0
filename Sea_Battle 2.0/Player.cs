@@ -9,8 +9,14 @@ namespace Sea_Battle_2._0
 {
     class Player
     {        
-        public void GetField(string [,] field)
+        public string [,] GetField()
         {
+            string[,] field = new string [10,10];
+            for (int y = 0; y<10; y++)
+                for (int x = 0; x < 10; x++)
+                {
+                    field[x, y] = ".";
+                }
             Four four = new Four();
             four.GetShip(field);
             Three three = new Three();
@@ -25,6 +31,7 @@ namespace Sea_Battle_2._0
             one.GetShip(field);
             one.GetShip(field);
             one.GetShip(field);
+            return field;
         }
         public virtual void Attack(string [,] attakingfield)
         {
