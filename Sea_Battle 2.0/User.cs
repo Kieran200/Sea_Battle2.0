@@ -12,33 +12,20 @@ namespace Sea_Battle_2._0
         int first_y;
         public override void Attack(string[,] attackingfield, out int counthits)
         {
-            counthits = 1;
+            counthits = 0;
             int x;
             int y;
 
-
             Console.WriteLine("Введите поле, по которому хотите нанести удар: ");
             Translator(out x, out y);
-            if (counthits == 1)
-            {
-                first_x = x;
-                first_y = y;
-            }
-
-
 
             if (attackingfield[x, y] == "1")
-            {
+            {   
                 attackingfield[x, y] = "x";
                 counthits += 1;
+                
 
-                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) != 0)
-                {
-                    first_x = x;
-                    first_y = y;
-                }
-
-                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) == 0)      // огорождает убитый корабль (1 палубный)
+                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) == 0)      // огорождает убитый корабль 
                 {
                     for (int j = y - 1; j <= y + 1; j++)
                         for (int i = x - 1; i <= x + 1; i++)
@@ -56,9 +43,6 @@ namespace Sea_Battle_2._0
                                 attackingfield[i, j] = "o";
                             }
                         }
-                }
-                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) == 0)      // огорождает убитый корабль (1 палубный)
-                {
                     for (int j = first_y - 1; j <= first_y + 1; j++)
                         for (int i = first_x - 1; i <= first_x + 1; i++)
                         {
@@ -75,16 +59,23 @@ namespace Sea_Battle_2._0
                                 attackingfield[i, j] = "o";
                             }
                         }
+
                 }
 
-
-
-
+                if (counthits == 1 && Neighbor_x(x, y, attackingfield) == 0)
+                {
+                    first_x = x;
+                    first_y = y;
+                }
+                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) != 0)
+                {
+                    first_x = x;
+                    first_y = y;
+                }
             }
             else
             {
                 attackingfield[x, y] = "o";
-                counthits = 0;
             }
         }
 
