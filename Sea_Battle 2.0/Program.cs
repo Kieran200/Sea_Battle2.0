@@ -10,12 +10,13 @@ namespace Sea_Battle_2._0
     {
         static void Main(string[] args)
         {
+            int counthits = 1;
             Computer comp = new Computer();
             User user = new User();
             string[,] compfield = comp.GetField();
             string[,] userfield = user.GetField();
 
-
+            
 
             for (int i = 0; i < compfield.GetLength(0); i++)
             {
@@ -23,8 +24,8 @@ namespace Sea_Battle_2._0
                     Console.Write(compfield[i, j]);
                 Console.WriteLine("");
             }
-
-            user.Attack(compfield);
+            while(counthits != 0)
+                user.Attack(compfield, out counthits);
 
             for (int i = 0; i < compfield.GetLength(0); i++)
             {

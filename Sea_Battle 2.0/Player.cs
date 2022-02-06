@@ -33,9 +33,31 @@ namespace Sea_Battle_2._0
             one.GetShip(field);
             return field;
         }
-        public virtual void Attack(string [,] attakingfield)
+        public virtual void Attack(string [,] attakingfield, out int counthits)
         {
+            counthits = 0;
+        }
 
+        public int Neighbor(int xCentral, int yCentral, string[,] field)
+        {
+            int neighbors = 0;
+            for (int x = xCentral - 1; x <= xCentral + 1; x++)
+                for (int y = yCentral - 1; y <= yCentral + 1; y++)   
+                {
+                    if (x == xCentral && y == yCentral)
+                    {
+                        continue;
+                    }
+                    else if (x < 0 || y < 0 || x >= field.GetLength(0) || y >= field.GetLength(1))
+                    {
+                        continue;
+                    }
+                    else if (field[x, y] == "1")
+                    {
+                        neighbors += 1;
+                    }
+                }
+            return neighbors;
         }
 
     }

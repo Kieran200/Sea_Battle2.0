@@ -8,27 +8,88 @@ namespace Sea_Battle_2._0
 {
     class User : Player
     {
-        string[,] userfield = new string[10,10];
-
-        public override void Attack(string[,] attackingfield) 
+        int first_x;
+        int first_y;
+        public override void Attack(string[,] attackingfield, out int counthits)
         {
+            counthits = 1;
             int x;
             int y;
-            int i = 0;
-            
-                Console.WriteLine("Введите поле, по которому хотите нанести удар: ");
-                Translator(out x, out y);
-                if (attackingfield[x, y] == "1")
-                    attackingfield[x, y] = "х";
-                else
+
+
+            Console.WriteLine("Введите поле, по которому хотите нанести удар: ");
+            Translator(out x, out y);
+            if (counthits == 1)
+            {
+                first_x = x;
+                first_y = y;
+            }
+
+
+
+            if (attackingfield[x, y] == "1")
+            {
+                attackingfield[x, y] = "x";
+                counthits += 1;
+
+                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) != 0)
                 {
-                    attackingfield[x, y] = "о";
-                    i++;
-                } 
-                   
+                    first_x = x;
+                    first_y = y;
+                }
+
+                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) == 0)      // огорождает убитый корабль (1 палубный)
+                {
+                    for (int j = y - 1; j <= y + 1; j++)
+                        for (int i = x - 1; i <= x + 1; i++)
+                        {
+                            if (i == x && j == y)
+                            {
+                                continue;
+                            }
+                            else if (i < 0 || j < 0 || i >= 10 || j >= 10 || attackingfield[i, j] == "x")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                attackingfield[i, j] = "o";
+                            }
+                        }
+                }
+                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) == 0)      // огорождает убитый корабль (1 палубный)
+                {
+                    for (int j = first_y - 1; j <= first_y + 1; j++)
+                        for (int i = first_x - 1; i <= first_x + 1; i++)
+                        {
+                            if (i == first_x && j == first_y)
+                            {
+                                continue;
+                            }
+                            else if (i < 0 || j < 0 || i >= 10 || j >= 10 || attackingfield[i, j] == "x")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                attackingfield[i, j] = "o";
+                            }
+                        }
+                }
+
+
+
+
+            }
+            else
+            {
+                attackingfield[x, y] = "o";
+                counthits = 0;
+            }
         }
 
-        private void Translator(out int x, out int y)
+
+            private void Translator(out int x, out int y)
         {
             x = -1;
             string input;
