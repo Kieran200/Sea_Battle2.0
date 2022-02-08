@@ -24,9 +24,9 @@ namespace Sea_Battle_2._0
                 while (counthits != 0)
                 {      
                     user.Attack(compfield, out counthits);
-                    for (int j = 0; j < 10; j++)
+                    for (int i = 0; i < 10; i++)
                     {
-                        for (int i = 0; i < 10; i++)
+                        for (int j = 0; j < 10; j++)
                         {
                             if (compfield[i, j] != "1")
                                 invisiblefield[i, j] = compfield[i, j];
@@ -51,9 +51,9 @@ namespace Sea_Battle_2._0
             void DrawField(string[,] field1, string[,] field2)        //метод вырисовки поля
             {
                 Console.Clear();
-                for (int j = 0; j < 10; j++)
+                for (int i = 0; i < 10; i++)
                 {
-                    for (int i = 0; i < 10; i++)
+                    for (int j = 0; j < 10; j++)
                     {
                         if (field1[i, j] == "x")
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -65,9 +65,9 @@ namespace Sea_Battle_2._0
                     Console.WriteLine("");
                 }
                 Console.WriteLine("/");
-                for (int j = 0; j < 10; j++)
+                for (int i = 0; i < 10; i++)
                 {
-                    for (int i = 0; i < 10; i++)
+                    for (int j = 0; j < 10; j++)
                     {
                         if (field2[i, j] == "x")
                             Console.ForegroundColor = ConsoleColor.Red;

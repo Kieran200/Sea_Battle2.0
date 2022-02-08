@@ -133,7 +133,7 @@ namespace Sea_Battle_2._0
                         break;
                     }
             }
-            y = number -1;
+            y = number - 1;
         }
 
 

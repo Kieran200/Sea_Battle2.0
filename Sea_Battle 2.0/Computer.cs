@@ -25,6 +25,8 @@ namespace Sea_Battle_2._0
                 y = rnd.Next(0, 10);
                 if (attackingfield[x, y] == "o" || attackingfield[x, y] == "x")
                     goto Metka6;
+                first_y = y;
+                first_x = x;
             }
             else 
             {     
