@@ -8,7 +8,8 @@ using System.IO;
 namespace Sea_Battle_2._0
 {
     class Player
-    {        
+    {
+        
         public string [,] GetField()
         {
             string[,] field = new string [10,10];
@@ -81,5 +82,26 @@ namespace Sea_Battle_2._0
             return neighbors;
         }
 
+        public void Border_Of_Ship(int x, int y, string[,] attackingfield)     //огорождает убийтый корабль
+        {
+            
+                for (int j = y - 1; j <= y + 1; j++)
+                    for (int i = x - 1; i <= x + 1; i++)
+                    {
+                        if (i == x && j == y)
+                        {
+                            continue;
+                        }
+                        else if (i < 0 || j < 0 || i >= 10 || j >= 10 || attackingfield[i, j] == "x")
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            attackingfield[i, j] = "o";
+                        }
+                   }
+            
+        }
     }
 }

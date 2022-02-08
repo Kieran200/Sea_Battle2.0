@@ -23,44 +23,13 @@ namespace Sea_Battle_2._0
             {   
                 attackingfield[x, y] = "x";
                 counthits += 1;
-                
 
-                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) == 0)      // огорождает убитый корабль 
+                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) == 0)      
                 {
-                    for (int j = y - 1; j <= y + 1; j++)
-                        for (int i = x - 1; i <= x + 1; i++)
-                        {
-                            if (i == x && j == y)
-                            {
-                                continue;
-                            }
-                            else if (i < 0 || j < 0 || i >= 10 || j >= 10 || attackingfield[i, j] == "x")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                attackingfield[i, j] = "o";
-                            }
-                        }
-                    for (int j = first_y - 1; j <= first_y + 1; j++)
-                        for (int i = first_x - 1; i <= first_x + 1; i++)
-                        {
-                            if (i == first_x && j == first_y)
-                            {
-                                continue;
-                            }
-                            else if (i < 0 || j < 0 || i >= 10 || j >= 10 || attackingfield[i, j] == "x")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                attackingfield[i, j] = "o";
-                            }
-                        }
-
+                    Border_Of_Ship(x, y, attackingfield);
+                    Border_Of_Ship(first_x, first_y, attackingfield);
                 }
+                     
 
                 if (counthits == 1 && Neighbor_x(x, y, attackingfield) == 0)
                 {
