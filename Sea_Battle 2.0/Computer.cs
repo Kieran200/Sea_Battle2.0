@@ -31,7 +31,7 @@ namespace Sea_Battle_2._0
             }
             else 
             {     
-                Second_Attack(out x, out y, x, y, first_x, first_y, attackingfield);       
+                Second_Attack(out x, out y, x, y, first_x, first_y, attackingfield, out first_x, out first_y);       
             }
 
 
@@ -68,8 +68,10 @@ namespace Sea_Battle_2._0
 
 
 
-        public void Second_Attack(out int x, out int y, int _x, int _y, int first_x, int first_y, string [,] attackingfield)
+        public void Second_Attack(out int x, out int y, int _x, int _y, int first_x, int first_y, string [,] attackingfield, out int second_x, out int second_y)
         {
+            second_x = first_x;
+            second_y = first_y;
             int trigger = 0;
             int __x; 
             int __y;
@@ -88,7 +90,7 @@ namespace Sea_Battle_2._0
                     y = first_y;
                     direction = rnd.Next(0, 4); 
                 }
-                if (count >= 2 && attackingfield[x, y] == "o" || count >= 2 && Neighbor_o(x,y,attackingfield) >= 3 && attackingfield[x, y] == "x")
+                if (count >= 2 && attackingfield[x, y] == "o" || count >= 2 && trigger >= 10 && attackingfield[x, y] == "x")
                 {
                     __x = x;
                     __y = y;
@@ -98,8 +100,8 @@ namespace Sea_Battle_2._0
                             {
                                 x = first_x;
                                 y = first_y;
-                                first_x = __x--;
-                                first_y = __y;
+                                second_x = __x-1;
+                                second_y = __y;
                                 direction++;
                                 break;
                             }
@@ -107,8 +109,8 @@ namespace Sea_Battle_2._0
                             {
                                 x = first_x;
                                 y = first_y;
-                                first_x = __x++;
-                                first_y = __y;
+                                second_x = __x+1;
+                                second_y = __y;
                                 direction--;
                                 break;
                             }
@@ -116,8 +118,8 @@ namespace Sea_Battle_2._0
                             {
                                 x = first_x;
                                 y = first_y;
-                                first_x = __x;
-                                first_y = __y--;
+                                second_x = __x;
+                                second_y = __y-1;
                                 direction++;
                                 break;
                             }
@@ -125,8 +127,8 @@ namespace Sea_Battle_2._0
                             {
                                 x = first_x;
                                 y = first_y;
-                                first_x = __x;
-                                first_y = __y++;
+                                second_x = __x;
+                                second_y = __y+1;
                                 direction--;
                                 break;
                             }
@@ -181,6 +183,7 @@ namespace Sea_Battle_2._0
                         }
                         break;
                     }
+
             }
         }
     }

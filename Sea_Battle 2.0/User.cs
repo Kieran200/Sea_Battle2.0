@@ -105,6 +105,11 @@ namespace Sea_Battle_2._0
             input = Console.ReadLine();
             input = input.Trim();
             input = input.ToLower();
+            if (input == "")
+            {
+                Console.WriteLine("Вы неправильно ввели поле, попробуйте заново");
+                goto Metka5;
+            }
             if ((input[0] == 'а' || input[0] == 'б' || input[0] == 'в' || input[0] == 'г' || input[0] == 'д' || input[0] == 'е' || input[0] == 'ж' || input[0] == 'з' || input[0] == 'и' || input[0] == 'к') && input.Count() <= 3
 && (input[1] == '1' || input[1] == '2' || input[1] == '3' || input[1] == '4' || input[1] == '5' || input[1] == '6' || input[1] == '7' || input[1] == '8' || input[1] == '9'))
             {
@@ -115,7 +120,7 @@ namespace Sea_Battle_2._0
                 Console.WriteLine("Вы неправильно ввели поле, попробуйте заново");
                 goto Metka5;
             }
-
+            
             letter = input[0];
             number = int.Parse(Convert.ToString(input[1]));
             if (input.Count() == 3 && input[2] == '0' && input[1] == '1')
