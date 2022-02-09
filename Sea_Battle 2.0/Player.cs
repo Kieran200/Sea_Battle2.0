@@ -10,7 +10,7 @@ namespace Sea_Battle_2._0
     class Player
     {
         
-        public string [,] GetField()
+        public virtual string [,] GetField()
         {
             string[,] field = new string [10,10];
             for (int y = 0; y<10; y++)
@@ -75,6 +75,27 @@ namespace Sea_Battle_2._0
                         continue;
                     }
                     else if (field[x, y] == "x")
+                    {
+                        neighbors += 1;
+                    }
+                }
+            return neighbors;
+        }
+        public int Neighbor_o(int xCentral, int yCentral, string[,] field)
+        {
+            int neighbors = 0;
+            for (int x = xCentral - 1; x <= xCentral + 1; x++)
+                for (int y = yCentral - 1; y <= yCentral + 1; y++)
+                {
+                    if (x == xCentral && y == yCentral)
+                    {
+                        continue;
+                    }
+                    else if (x < 0 || y < 0 || x >= field.GetLength(0) || y >= field.GetLength(1))
+                    {
+                        continue;
+                    }
+                    else if (field[x, y] == "o")
                     {
                         neighbors += 1;
                     }

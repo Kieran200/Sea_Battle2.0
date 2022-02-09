@@ -14,6 +14,7 @@ namespace Sea_Battle_2._0
         int x;
         int y;
         int direction = -1;
+        
         Random rnd = new Random();
         public override void Attack(string[,] attackingfield, out int counthits)
         {            
@@ -54,11 +55,7 @@ namespace Sea_Battle_2._0
                     first_x = x;
                     first_y = y;
                 }
-                if (Neighbor(x, y, attackingfield) == 0 && Neighbor(first_x, first_y, attackingfield) != 0)
-                {
-                    first_x = x;
-                    first_y = y;
-                }
+                
             }
             else
             {
@@ -73,44 +70,63 @@ namespace Sea_Battle_2._0
 
         public void Second_Attack(out int x, out int y, int _x, int _y, int first_x, int first_y, string [,] attackingfield)
         {
+            int trigger = 0;
+            int __x; 
+            int __y;
             x = _x;
             y = _y;
         Metka7: if (count == 1)
             {
                 direction = rnd.Next(0, 4);
             }
-            if (direction == -1 || attackingfield[x,y] == "o")
+            if (direction == -1 || attackingfield[x,y] == "o" ||  x - 1 < 0 || y - 1 < 0 || x + 1 >= 10 || y + 1 >= 10 || trigger >= 10)
             {
                 
-                if (count >= 1 && attackingfield[x, y] == "o")
+                if (count == 1 && attackingfield[x, y] == "o")
                 {
                     x = first_x;
                     y = first_y;
-                    direction = rnd.Next(0, 4);
+                    direction = rnd.Next(0, 4); 
                 }
-                if (count >= 2 && Neighbor(x, y, attackingfield) == 0)
+                if (count >= 2 && attackingfield[x, y] == "o" || count >= 2 && Neighbor_o(x,y,attackingfield) >= 3 && attackingfield[x, y] == "x")
                 {
-                    x = first_x;
-                    y = first_y;
+                    __x = x;
+                    __y = y;
                     switch (direction)
                     {
                         case 0:
                             {
+                                x = first_x;
+                                y = first_y;
+                                first_x = __x--;
+                                first_y = __y;
                                 direction++;
                                 break;
                             }
                         case 1:
                             {
+                                x = first_x;
+                                y = first_y;
+                                first_x = __x++;
+                                first_y = __y;
                                 direction--;
                                 break;
                             }
                         case 2:
                             {
+                                x = first_x;
+                                y = first_y;
+                                first_x = __x;
+                                first_y = __y--;
                                 direction++;
                                 break;
                             }
                         case 3:
                             {
+                                x = first_x;
+                                y = first_y;
+                                first_x = __x;
+                                first_y = __y++;
                                 direction--;
                                 break;
                             }
@@ -126,6 +142,7 @@ namespace Sea_Battle_2._0
                         if (x < 0 || y < 0 || x >= 10 || y >= 10 || attackingfield[x, y] == "o")                 
                         {
                             x--;
+                            trigger++;
                             goto Metka7;  
                         }     
                         break;
@@ -136,6 +153,7 @@ namespace Sea_Battle_2._0
                         if (x < 0 || y < 0 || x >= 10 || y >= 10 || attackingfield[x, y] == "o")
                         {
                             x++;
+                            trigger++;
                             goto Metka7;
                         }
                         break;
@@ -146,6 +164,7 @@ namespace Sea_Battle_2._0
                         if (x < 0 || y < 0 || x >= 10 || y >= 10 || attackingfield[x, y] == "o")
                         {
                             y--;
+                            trigger++;
                             goto Metka7;
                         }
                         break;
@@ -153,9 +172,11 @@ namespace Sea_Battle_2._0
                 case 3:
                     {
                         y--;
+                        
                         if (x < 0 || y < 0 || x >= 10 || y >= 10 || attackingfield[x, y] == "o")
                         {
                             y++;
+                            trigger++;
                             goto Metka7;
                         }
                         break;

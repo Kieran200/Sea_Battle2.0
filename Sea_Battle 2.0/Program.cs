@@ -20,6 +20,8 @@ namespace Sea_Battle_2._0
             DrawField(userfield, invisiblefield);
             while (true)
             {
+                int compcount_x = 0;
+                int usercount_x = 0;
                 counthits = 1;
                 while (counthits != 0)
                 {      
@@ -35,6 +37,12 @@ namespace Sea_Battle_2._0
                     }
                     DrawField(userfield, invisiblefield);
                 }
+                Count_X(compfield, out compcount_x);
+                if (compcount_x == 20)
+                {
+                    Console.WriteLine("Вы победили!!!!!");
+                    break;
+                }
                 Console.WriteLine("Нажмите Enter для атаки компьютера");
                 Console.ReadKey();
                 counthits = 1;
@@ -43,10 +51,27 @@ namespace Sea_Battle_2._0
                     comp.Attack(userfield, out counthits);
                     DrawField(userfield, invisiblefield);
                     Console.ReadKey();
+                    Count_X(userfield, out usercount_x);
+                    if (usercount_x == 20)
+                    {
+                        Console.WriteLine("Увы, вы проиграли :(");
+                        break;
+                    }
                 }
             }
 
-
+            void Count_X(string[,] field, out int count_x)
+            {
+                count_x = 0;
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (field[i, j] == "x")
+                            count_x++;
+                    }                   
+                }
+            }
 
             void DrawField(string[,] field1, string[,] field2)        //метод вырисовки поля
             {

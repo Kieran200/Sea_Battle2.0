@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Sea_Battle_2._0
 {
@@ -10,6 +11,51 @@ namespace Sea_Battle_2._0
     {
         int first_x;
         int first_y;
+
+        public override string[,] GetField()
+        {
+            string[,] field = new string[10, 10];
+            Console.WriteLine("Выберите способ установки поля: ");
+            Console.WriteLine("Для установки рандомного поля нажмите \"р\"");
+            Console.WriteLine("Для установки поля с файла нажмите \"ф\"");
+            string input = Console.ReadLine();
+            if (input == "р")
+            {   
+                for (int y = 0; y < 10; y++)
+                    for (int x = 0; x < 10; x++)
+                    {
+                        field[x, y] = ".";
+                    } 
+                Four four = new Four();
+                four.GetShip(field);
+                Three three = new Three();
+                three.GetShip(field);
+                three.GetShip(field);
+                Two two = new Two();
+                two.GetShip(field);
+                two.GetShip(field);
+                two.GetShip(field);
+                One one = new One(); 
+                one.GetShip(field);
+                one.GetShip(field);
+                one.GetShip(field);
+                one.GetShip(field);
+            }
+            else if (input == "ф")
+            {
+                StreamReader sr = new StreamReader("Поле.txt");
+                for (int y = 0; y < 10; y++)
+                {
+                    string stringsr = sr.ReadLine();
+                    for (int x = 0; x < 10; x++)
+                    {
+                        field[y, x] = Convert.ToString(stringsr[x]);
+                    }
+                }
+            }
+            return field;
+        }
+
         public override void Attack(string[,] attackingfield, out int counthits)
         {
             counthits = 0;
