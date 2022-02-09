@@ -30,7 +30,7 @@ namespace Sea_Battle_2._0
             }
             else 
             {     
-                    Second_Attack(out x, out y, x, y, first_x, first_y, attackingfield);       
+                Second_Attack(out x, out y, x, y, first_x, first_y, attackingfield);       
             }
 
 
@@ -45,6 +45,7 @@ namespace Sea_Battle_2._0
                 {
                     Border_Of_Ship(x, y, attackingfield);
                     Border_Of_Ship(first_x, first_y, attackingfield);
+                    direction = -1;
                     count = 0;
                 }
 
@@ -74,11 +75,48 @@ namespace Sea_Battle_2._0
         {
             x = _x;
             y = _y;
-        Metka7: if (direction == -1 || attackingfield[x,y] == "o")
+        Metka7: if (count == 1)
             {
-                x = first_x;
-                y = first_y;
                 direction = rnd.Next(0, 4);
+            }
+            if (direction == -1 || attackingfield[x,y] == "o")
+            {
+                
+                if (count >= 1 && attackingfield[x, y] == "o")
+                {
+                    x = first_x;
+                    y = first_y;
+                    direction = rnd.Next(0, 4);
+                }
+                if (count >= 2 && Neighbor(x, y, attackingfield) == 0)
+                {
+                    x = first_x;
+                    y = first_y;
+                    switch (direction)
+                    {
+                        case 0:
+                            {
+                                direction++;
+                                break;
+                            }
+                        case 1:
+                            {
+                                direction--;
+                                break;
+                            }
+                        case 2:
+                            {
+                                direction++;
+                                break;
+                            }
+                        case 3:
+                            {
+                                direction--;
+                                break;
+                            }
+                    }
+
+                }
             }
             switch(direction)
             {
@@ -88,8 +126,7 @@ namespace Sea_Battle_2._0
                         if (x < 0 || y < 0 || x >= 10 || y >= 10 || attackingfield[x, y] == "o")                 
                         {
                             x--;
-                            goto Metka7;
-                            
+                            goto Metka7;  
                         }     
                         break;
                     }
